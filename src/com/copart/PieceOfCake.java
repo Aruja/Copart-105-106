@@ -4,14 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class PieceOfCake {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 
-		//Scanner scanner = new Scanner(System.in);
-
+		//Input file name
 		String file = "data/PieceOfCakeInput.txt";
 		BufferedReader br = null;
 		try {
@@ -19,10 +17,9 @@ public class PieceOfCake {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		
-		
-		
+		//Reading the first integer from the file. It is the number of cakes.
 		int n = Integer.parseInt(br.readLine());
+		//Validating the input. Value of N should be less than equal to 100
 		if(n>100){
 			System.out.println("Value of N should be less than equal to 100");
 			return;
@@ -30,8 +27,9 @@ public class PieceOfCake {
 		int[] area_array = new int[n];
 		int index=0;
 		String line ="";
+		//Reading area of all cakes from file.
 		while ((line = br.readLine()) != null) {
-			if(Integer.parseInt(line)>500000000){
+			if(isNotInt(line) || Integer.parseInt(line)>500000000){
 				System.out.println("Area should be less than equal to 500000000");
 				return;
 			}
@@ -39,16 +37,26 @@ public class PieceOfCake {
 			area_array[index++] = Integer.parseInt(line);
 			}
 		}
-
+		//Calling function to add the minimum perimeter of the rectangle.
 		int[] result_array = calclulateMinimumPerimeter(area_array);
 
+		//Displaying result on console.
 		for (int i = 0; i < n; i++) {
 			System.out.println(result_array[i]);
 		}
-		
-		//scanner.close();
 	}
 
+	private static boolean isNotInt(String number){
+		try{
+			Integer.parseInt(number);
+			return false;
+		}catch(Exception e){
+			return true;
+		}
+		
+		
+	}
+	//Method to calculate minimum perimeter for every cake. 
 	private static int[] calclulateMinimumPerimeter(int[] area_array) {
 
 		int[] result_array = new int[area_array.length];

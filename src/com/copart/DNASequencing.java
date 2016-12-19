@@ -20,7 +20,7 @@ public class DNASequencing {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		String sequence = null;
 		try {
 			sequence = br.readLine();
@@ -32,7 +32,7 @@ public class DNASequencing {
 		int maxLength = Integer.MIN_VALUE;
 
 		for (int i = 0; i < 4; i++) {
-			
+
 			if (maxLength < subSequenceCount[i]) {
 				maxLength = subSequenceCount[i];
 			}
@@ -45,7 +45,7 @@ public class DNASequencing {
 			}
 		}
 
-		//scanner.close();
+		// scanner.close();
 
 	}
 
@@ -58,48 +58,58 @@ public class DNASequencing {
 
 	private static void findSubsequenceLength(String sequence) {
 		for (int i = 0; i < sequence.length(); i++) {
-			if(i==sequence.length() -1){
-				if (sequence.substring(i, i + 1).equals("A") &&  subSequenceCount[0] == 0 )
+			if (i == sequence.length() - 1) {
+				if ((sequence.substring(i, i + 1).equals("A") || sequence.substring(i, i + 1).equals("a"))
+						&& subSequenceCount[0] == 0)
 					subSequenceCount[0] = 1;
-				else if (sequence.substring(i, i + 1).equals("T") && subSequenceCount[1]==0)
+				else if ((sequence.substring(i, i + 1).equals("T") || sequence.substring(i, i + 1).equals("t"))
+						&& subSequenceCount[1] == 0)
 					subSequenceCount[1] = 1;
-				else if (sequence.substring(i, i + 1).equals("G") &&  subSequenceCount[2]==0)
+				else if ((sequence.substring(i, i + 1).equals("G") || sequence.substring(i, i + 1).equals("g"))
+						&& subSequenceCount[2] == 0)
 					subSequenceCount[2] = 1;
-				else if (sequence.substring(i, i + 1).equals("C") && subSequenceCount[3]==0)
+				else if ((sequence.substring(i, i + 1).equals("C") || sequence.substring(i, i + 1).equals("c"))
+						&& subSequenceCount[3] == 0)
 					subSequenceCount[3] = 1;
-			}
-			else{
-				
-			if (sequence.substring(i, i + 1).equals(sequence.substring(i + 1, i + 2))) {
-				int count = 1;
-				for (int j = i + 1; j < sequence.length(); j++) {
-					if (sequence.substring(i, i + 1).equals(sequence.substring(j, j + 1))) {
-						count++;
-					} else {
-						break;
+			} else {
+
+				if (sequence.substring(i, i + 1).equals(sequence.substring(i + 1, i + 2))) {
+					int count = 1;
+					for (int j = i + 1; j < sequence.length(); j++) {
+						if (sequence.substring(i, i + 1).equalsIgnoreCase(sequence.substring(j, j + 1))) {
+							count++;
+						} else {
+							break;
+						}
 					}
+					if ((sequence.substring(i, i + 1).equals("A") || sequence.substring(i, i + 1).equals("a"))
+							&& count > subSequenceCount[0])
+						subSequenceCount[0] = count;
+					else if ((sequence.substring(i, i + 1).equals("T") || sequence.substring(i, i + 1).equals("t"))
+							&& count > subSequenceCount[1])
+						subSequenceCount[1] = count;
+					else if ((sequence.substring(i, i + 1).equals("G") || sequence.substring(i, i + 1).equals("g"))
+							&& count > subSequenceCount[2])
+						subSequenceCount[2] = count;
+					else if ((sequence.substring(i, i + 1).equals("C") || sequence.substring(i, i + 1).equals("c"))
+							&& count > subSequenceCount[3])
+						subSequenceCount[3] = count;
+				} else {
+					if ((sequence.substring(i, i + 1).equals("A") || sequence.substring(i, i + 1).equals("a"))
+							&& subSequenceCount[0] == 0)
+						subSequenceCount[0] = 1;
+					else if ((sequence.substring(i, i + 1).equals("T") || sequence.substring(i, i + 1).equals("t"))
+							&& subSequenceCount[1] == 0)
+						subSequenceCount[1] = 1;
+					else if ((sequence.substring(i, i + 1).equals("G") || sequence.substring(i, i + 1).equals("g"))
+							&& subSequenceCount[2] == 0)
+						subSequenceCount[2] = 1;
+					else if ((sequence.substring(i, i + 1).equals("C") || sequence.substring(i, i + 1).equals("c"))
+							&& subSequenceCount[3] == 0)
+						subSequenceCount[3] = 1;
 				}
-				if (sequence.substring(i, i + 1).equals("A") && count > subSequenceCount[0])
-					subSequenceCount[0] = count;
-				else if (sequence.substring(i, i + 1).equals("T") && count > subSequenceCount[1])
-					subSequenceCount[1] = count;
-				else if (sequence.substring(i, i + 1).equals("G") && count > subSequenceCount[2])
-					subSequenceCount[2] = count;
-				else if (sequence.substring(i, i + 1).equals("C") && count > subSequenceCount[3])
-					subSequenceCount[3] = count;
-			}
-			else{
-				if (sequence.substring(i, i + 1).equals("A") &&  subSequenceCount[0] == 0 )
-					subSequenceCount[0] = 1;
-				else if (sequence.substring(i, i + 1).equals("T") && subSequenceCount[1]==0)
-					subSequenceCount[1] = 1;
-				else if (sequence.substring(i, i + 1).equals("G") &&  subSequenceCount[2]==0)
-					subSequenceCount[2] = 1;
-				else if (sequence.substring(i, i + 1).equals("C") && subSequenceCount[3]==0)
-					subSequenceCount[3] = 1;
-			}
 			}
 		}
-			
+
 	}
 }
