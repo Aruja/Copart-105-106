@@ -1,5 +1,9 @@
 package com.copart;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class DNASequencing {
@@ -9,15 +13,26 @@ public class DNASequencing {
 
 	public static void main(String[] args) {
 
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.println("Enter the sequence of DNA Molecule");
-		String sequence = scanner.nextLine();
+		String file = "data/DNASequenceInput.txt";
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+		String sequence = null;
+		try {
+			sequence = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		initializeCharSequence();
 		findSubsequenceLength(sequence);
 		int maxLength = Integer.MIN_VALUE;
 
 		for (int i = 0; i < 4; i++) {
+			
 			if (maxLength < subSequenceCount[i]) {
 				maxLength = subSequenceCount[i];
 			}
@@ -30,7 +45,7 @@ public class DNASequencing {
 			}
 		}
 
-		scanner.close();
+		//scanner.close();
 
 	}
 

@@ -1,19 +1,33 @@
 package com.copart;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class PieceOfCake {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NumberFormatException, IOException {
 
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Enter the number of cakes to create");
-		int n = scanner.nextInt();
-		System.out.println("Desired area for each cake");
+		String file = "data/PieceOfCakeInput.txt";
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		
+		int n = Integer.parseInt(br.readLine());
 		int[] area_array = new int[n];
-		for (int i = 0; i < n; i++) {
-			area_array[i] = scanner.nextInt();
+		int index=0;
+		String line ="";
+		while ((line = br.readLine()) != null) {
+			area_array[index++] = Integer.parseInt(line);
 		}
 
 		int[] result_array = calclulateMinimumPerimeter(area_array);
@@ -22,7 +36,7 @@ public class PieceOfCake {
 			System.out.println(result_array[i]);
 		}
 		
-		scanner.close();
+		//scanner.close();
 	}
 
 	private static int[] calclulateMinimumPerimeter(int[] area_array) {
