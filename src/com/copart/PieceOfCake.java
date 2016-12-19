@@ -23,11 +23,21 @@ public class PieceOfCake {
 		
 		
 		int n = Integer.parseInt(br.readLine());
+		if(n>100){
+			System.out.println("Value of N should be less than equal to 100");
+			return;
+		}
 		int[] area_array = new int[n];
 		int index=0;
 		String line ="";
 		while ((line = br.readLine()) != null) {
+			if(Integer.parseInt(line)>500000000){
+				System.out.println("Area should be less than equal to 500000000");
+				return;
+			}
+			else{
 			area_array[index++] = Integer.parseInt(line);
+			}
 		}
 
 		int[] result_array = calclulateMinimumPerimeter(area_array);
